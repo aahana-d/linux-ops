@@ -1,3 +1,9 @@
 git init
 git add commands.txt
 git commit -m "First Commit"
+curl -O https://twomorecents.org/files/twocities.txt
+grep -P -o '"[^"]*"' twocities.txt > twocities_quotes.txt
+grep -P -o '\b\w+\.' twocities.txt > twocities_sentence_endings.txt
+grep -P -o '\b\w{5}\.' twocities.txt > twocities_five_letters.txt
+grep -P -o '\b\w{17}\b' twocities.txt
+grep -c '^CHAPTER' twocities.txt

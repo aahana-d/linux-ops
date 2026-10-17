@@ -1,0 +1,9 @@
+ifconfig > ifconfig.txt
+
+grep 'inet ' ifconfig.txt > ifconfig_v4.txt
+
+grep -oP '\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b' ifconfig_v4.txt > ip.txt
+
+sort -n ip.txt
+
+ifconfig | grep 'inet ' | grep -oP '\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b' | sort -n > sorted_ip.txt

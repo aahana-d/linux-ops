@@ -12,6 +12,8 @@ Materials, code snippets, and hands-on lab exercises for the **Linux & Bash Scri
 - Searching text with `grep`
 - Regular expressions (basic, extended, and Perl-style)
 - Sorting and processing text (`sort`)
+- Long directory listings and sorting by file size (`ls -l`)
+- Removing duplicates, counting, and trimming output (`uniq`, `wc`, `head`)
 - Pipelines: chaining commands without intermediate files
 - Bash scripting fundamentals
 
@@ -32,12 +34,17 @@ Materials, code snippets, and hands-on lab exercises for the **Linux & Bash Scri
 │   ├── ip.txt                          # Unsorted IPv4 addresses from ifconfig
 │   ├── sorted_ip.txt                   # Sorted IPv4 addresses from ifconfig
 │   └── ipv6_regex.txt                  # Bonus: IPv6 regex
+├── sorting/                            
+│   ├── commands.txt                    # Commands for each step
+│   ├── twocities.txt                   # Novel text
+│   ├── twocities_ten_letters.txt       # First 20 ten-letter words, sorted
+│   └── twocities_unique_ten_letters.txt # First 20 unique ten-letter words
 └── README.md
 ```
 
 Each homework folder contains the files requested in that assignment's worksheet.
 
-## Homework 1: Regex and `grep` on *A Tale of Two Cities*
+## Homework 1 (`regex/`): Regex and `grep` on *A Tale of Two Cities*
 
 **Goal:** Use regular expressions with `grep` to extract quotes, sentence endings, and specific words from the novel (`twocities.txt`, public domain), tracking the work in a Git repository.
 
@@ -66,7 +73,7 @@ Each homework folder contains the files requested in that assignment's worksheet
 3. Narrow that to five-letter words
 4. Find the only seventeen-letter word and count the chapters
 
-## Homework 2: `ifconfig`, `grep`, and Pipelines
+## Homework 2 (`ifconfig/`): `ifconfig`, `grep`, and Pipelines
 
 **Goal:** Isolate and numerically sort the IPv4 addresses reported by `ifconfig`, first with intermediate files and then as a single pipeline. The bonus builds a regex for IPv6 addresses.
 
@@ -88,6 +95,29 @@ Each homework folder contains the files requested in that assignment's worksheet
 | Regex101 | Browser tool for building and testing the bonus regex |
 
 **Deliverables:** `commands.txt`, `sorted_ip.txt`, and `ipv6_regex.txt` (bonus).
+
+## Homework 3 (`sorting/`): Pipelines and Sorting
+ 
+**Goal:** Build pipelines (no temporary files) to count and extract words from *A Tale of Two Cities*, then find the largest file in `/usr/bin`. The week's user/group and permissions material is hard to test on a single machine, so this homework focuses on pipelines and sorting.
+ 
+**Tools and concepts used**
+ 
+| Tool / Concept | Role in this homework |
+|---|---|
+| `grep -o` and `-P` | Extract only matching words, using Perl-style regex (`\b\w{10}\b` for 10-letter words) |
+| `\|` (pipe) | Chains every step so no intermediate files are needed |
+| `wc -l` | Counts lines of input, which turns one-match-per-line output into a total (occurrences of "Manette") |
+| `head -n` | Keeps only the first N lines (first 20 words, or the top result) |
+| `sort -f` | Sorts alphabetically while ignoring case |
+| `uniq -i` | Collapses adjacent duplicate lines, ignoring case (input must be sorted first) |
+| Pipeline order | Choosing between "take 20, then dedupe" and "dedupe, then take 20" changes the result |
+| `ls -l` | Long listing of a directory, including file sizes in bytes |
+| `sort -k5,5nr` | Sorts on column 5 (size), numerically, largest first |
+| `>` (redirection) | Saves results to the files that get turned in |
+ 
+**Deliverables:** `commands.txt`, `twocities_ten_letters.txt`, and `twocities_unique_ten_letters.txt`.
+ 
+> Place `twocities.txt` in the `sorting/` folder before running `bash commands.txt`.
 
 ## Requirements
 

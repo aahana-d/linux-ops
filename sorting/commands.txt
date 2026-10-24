@@ -1,0 +1,9 @@
+grep -o 'Manette' twocities.txt | wc -l
+
+grep -oP '\b\w{10}\b' twocities.txt | head -n 20 | sort -f > twocities_ten_letters.txt
+uniq -i twocities_ten_letters.txt
+grep -oP '\b\w{10}\b' twocities.txt | sort -f | uniq -i | head -n 20 > twocities_unique_ten_letters.txt
+head -n 1 twocities_unique_ten_letters.txt
+
+ls -l /usr/bin
+ls -l /usr/bin | sort -k5,5nr | head -n 1
